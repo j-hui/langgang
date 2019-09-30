@@ -1,4 +1,4 @@
-module SimpleTypes where
+module NatAddAssoc where
 
 infix 10 _==_
 
