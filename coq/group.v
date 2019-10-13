@@ -1,3 +1,5 @@
+Load naturals.
+
 Structure group := {
     X :> Set;
     
@@ -11,3 +13,10 @@ Structure group := {
     left_identity : forall (x : X), x = op id x;
     right_identity : forall (x : X), x = op x id;
 }.
+
+Fixpoint applyN (X : Type) (x : X) (op : X -> X -> X) (n : N) : X :=
+  match n with
+    (* Wrong base case; can't get to id *)
+  | O => id
+  | S n' => op x (applyN x op n')
+  end.
