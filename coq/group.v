@@ -1,7 +1,7 @@
 Load naturals.
 
 Structure group := {
-    X :> Set;
+    X : Type;
     
     id : X;
     op : X -> X -> X;
@@ -14,7 +14,7 @@ Structure group := {
     right_identity : forall (x : X), x = op x id;
 }.
 
-Fixpoint applyN (X : Type) (x : X) (op : X -> X -> X) (n : N) : X :=
+Fixpoint applyN (G : group) (x : X G) (n : N) : X G :=
   match n with
   | O => id
   | S n' => op x (applyN x op n')
