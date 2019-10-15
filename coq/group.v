@@ -1,7 +1,8 @@
 Load naturals.
 
 Structure group := {
-    X : Type;
+                    X : Type;
+                              
     id : X;
     op : X -> X -> X;
     inv : X -> X;
@@ -25,17 +26,16 @@ Fixpoint applyN (G : group) (x : X G) (n : N) : X G :=
 Theorem inv_inv (G : group) : forall (g : X G), inv G (inv G g) = g.
 Proof.
   intros.
-  simpl.
-Qed.
+Admitted.
 
 
 Theorem inv_dist (G : group) : 
-        forall (a b : X G), inv (op a b) = op (inv a) (inv b).
+        forall (a b : X G), inv G (op G a b) = op G (inv G a) (inv G b).
 Proof.
-  Qed.
+Admitted.
 
 Theorem left_cancel (G : group) :
-        forall (a u v : X), op a u = op a v -> u = v.
+        forall (a u v : X G), op G a u = op G a v -> u = v.
 Proof.
-  Qed.
+Admitted.
 
