@@ -2,7 +2,6 @@ Load naturals.
 
 Structure group := {
     X : Type;
-    
     id : X;
     op : X -> X -> X;
     inv : X -> X;
@@ -14,15 +13,20 @@ Structure group := {
     right_identity : forall (x : X), x = op x id;
 }.
 
+
+Check inv.
+Check op.
 Fixpoint applyN (G : group) (x : X G) (n : N) : X G :=
   match n with
-  | O => id
-  | S n' => op x (applyN x op n')
+  | O => id G
+  | S n' => op G x (applyN G x n')
   end.
 
-Theorem inv_inv (G : group) : forall (g : A G), inv (inv g) = g.
+Theorem inv_inv (G : group) : forall (g : X G), inv G (inv G g) = g.
 Proof.
-  Qed.
+  intros.
+  simpl.
+Qed.
 
 
 Theorem inv_dist (G : group) : 
