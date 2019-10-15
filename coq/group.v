@@ -1,7 +1,7 @@
 Load naturals.
 
 Structure group := {
-                    X : Type;
+    X : Type;
                               
     id : X;
     op : X -> X -> X;
@@ -14,7 +14,6 @@ Structure group := {
     right_identity : forall (x : X), x = op x id;
 }.
 
-
 Check inv.
 Check op.
 Fixpoint applyN (G : group) (x : X G) (n : N) : X G :=
@@ -23,19 +22,40 @@ Fixpoint applyN (G : group) (x : X G) (n : N) : X G :=
   | S n' => op G x (applyN G x n')
   end.
 
-Theorem inv_inv (G : group) : forall (g : X G), inv G (inv G g) = g.
+Require Import Setoid.
+
+Theorem inv_inv (G : group) : forall (x : X G), inv G (inv G x) = x.
 Proof.
   intros.
+  symmetry.
+  rewrite (right_identity G x) at 1.
+  rewrite <- (left_inverse G (inv G x)).
+  rewrite <- (associativity G x (inv G x) (inv G (inv G x))).
+  rewrite (left_inverse G x).
+  rewrite <- (left_identity G (inv G (inv G x))).
+  reflexivity.
 Admitted.
 
-
 Theorem inv_dist (G : group) : 
-        forall (a b : X G), inv G (op G a b) = op G (inv G a) (inv G b).
+        forall (a b : X G), inv G (op G a b) = op G (inv G b) (inv G a).
 Proof.
+  intros.
+  rewrite (left_identity G (inv G (op G a b))).
+  rewrite <- (right_inverse G b).
+  rewrite (left_identity G b) at 2.
+  rewrite <- (right_inverse G a).
+  rewrite (associativity G (inv G a) a b).
+  rewrite <- (associativity G (inv G b) (inv G a) (op G a b)).
+  rewrite (associativity G (op G (inv G b) (inv G a)) (op G a b) (inv G (op G a b))).
+  rewrite (left_inverse G (op G a b)).
+  rewrite <- (right_identity G (op G (inv G b) (inv G a))).
+  reflexivity.
 Admitted.
 
 Theorem left_cancel (G : group) :
         forall (a u v : X G), op G a u = op G a v -> u = v.
 Proof.
+  intros.
+  
 Admitted.
 
