@@ -44,7 +44,7 @@ Proof.
   rewrite (right_inverse G).
   reflexivity.
   Qed.
-
+(*
 Theorem inv_unique (G : group) :
   forall (a u v : X G), inv G a = u /\ inv G a = v -> u = v.
 Proof.
@@ -65,7 +65,7 @@ Proof.
       rewrite right_inverse in H1.
       rewrite <- left_identity in H1.
 Qed.
-
+*)
 Theorem inv_dist (G : group) : 
         forall (a b : X G), inv G (op G a b) = op G (inv G b) (inv G a).
 Proof.
@@ -85,8 +85,15 @@ Admitted.
 Theorem left_cancel (G : group) :
         forall (a u v : X G), op G a u = op G a v -> u = v.
 Proof.
-  intros.
-  
+  intros a u v auav.
+  rewrite (left_identity G u).
+  rewrite <- (right_inverse G a).
+  rewrite (associativity G (inv G a) a u).
+  rewrite auav.
+  rewrite <- (associativity G (inv G a) a v).
+  rewrite (right_inverse G a).
+  rewrite <- (left_identity G v).
+  reflexivity.
 Admitted.
   
 
