@@ -23,10 +23,35 @@ Fixpoint applyN (G : group) (x : X G) (n : N) : X G :=
   | S n' => op G x (applyN G x n')
   end.
 
+Theorem inv_commute (G : group) :
+  forall (a : X G), op G (inv G a) a = op G a (inv G a).
+Proof.
+  intros.
+  rewrite (left_inverse G).
+  rewrite (right_inverse G).
+  reflexivity.
+  Qed.
+
 Theorem inv_unique (G : group) :
   forall (a u v : X G), inv G a = u /\ inv G a = v -> u = v.
 Proof.
-Admitted.
+  intros.
+  destruct H.
+  cut (u = (op G) u (id G)).
+  - intros.
+    cut (id G = (op G) ((inv G) a) a).
+    + intros.
+      rewrite H2 in H1.
+      rewrite inv_commute in H1.
+      rewrite H0 in H1.
+      rewrite <- associativity in H1.
+      
+
+
+      
+      rewrite right_inverse in H1.
+      rewrite <- left_identity in H1.
+Qed.
 
 Theorem inv_inv (G : group) : forall (g : X G), inv G (inv G g) = g.
 Proof.
