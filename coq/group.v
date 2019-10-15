@@ -20,3 +20,14 @@ Fixpoint applyN (X : Type) (x : X) (op : X -> X -> X) (n : N) : X :=
   | O => id
   | S n' => op x (applyN x op n')
   end.
+
+Theorem inv_inv (G : group) : forall (g : A G), inv (inv g) = g.
+Proof.
+  Qed.
+
+
+Theorem inv_dist (G : group) : 
+        forall (a b : X G), inv (op a b) = op (inv a) (inv b).
+Proof.
+  Qed.
+
