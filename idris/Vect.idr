@@ -25,7 +25,8 @@ data Vect : Nat -> Type -> Type where
 %name Vect xs,ys,zs
 
 append : Vect n a -> Vect m a -> Vect (n + m) a
-append xs ys = ?append_rhs1
+append [] ys = ys
+append (x :: xs) ys = x :: append xs ys
 
 {-
 Try to write this using the interactive tools alone:
@@ -34,6 +35,8 @@ append (x :: xs) ys = x :: append xs ys
 -}
 
 vZipWith : (a -> b -> c) -> Vect n a -> Vect n b -> Vect n c
+vZipWith f [] [] = []
+vZipWith f (x :: xs) (y :: ys) = f x y :: vZipWith f xs ys
 
 {-
 Try to write this using the interactive tools alone:

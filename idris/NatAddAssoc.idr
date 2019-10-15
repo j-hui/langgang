@@ -1,12 +1,7 @@
 module NatAddAssoc
 
-data MyNat = MZ | MS MyNat
-
-myplus : MyNat -> MyNat -> MyNat
-myplus MZ     y = y
-myplus (MS k) y = MS (myplus k y)
-
-(+) : MyNat -> MyNat -> MyNat
-(+) = myplus
-
-natAddAssoc : (a:MyNat) -> (b:MyNat) -> (c:MyNat) -> (a + b) + c = a + (b + c)
+plus_assoc : (x : Nat) -> (y : Nat) -> (z : Nat) -> (x + y) + z = x + (y + z)
+plus_assoc Z y z = Refl
+plus_assoc (S x') y z = let r = plus_assoc x' y z in
+                        rewrite r in
+                        Refl
