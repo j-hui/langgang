@@ -16,7 +16,6 @@ Structure group := {
 
 Fixpoint applyN (X : Type) (x : X) (op : X -> X -> X) (n : N) : X :=
   match n with
-    (* Wrong base case; can't get to id *)
   | O => id
   | S n' => op x (applyN x op n')
   end.
@@ -28,6 +27,11 @@ Proof.
 
 Theorem inv_dist (G : group) : 
         forall (a b : X G), inv (op a b) = op (inv a) (inv b).
+Proof.
+  Qed.
+
+Theorem left_cancel (G : group) :
+        forall (a u v : X), op a u = op a v -> u = v.
 Proof.
   Qed.
 
