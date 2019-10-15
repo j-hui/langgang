@@ -23,11 +23,14 @@ Fixpoint applyN (G : group) (x : X G) (n : N) : X G :=
   | S n' => op G x (applyN G x n')
   end.
 
-Theorem inv_inv (G : group) : forall (g : X G), inv G (inv G g) = g.
+Theorem inv_unique (G : group) :
+  forall (a u v : X G), inv G a = u /\ inv G a = v -> u = v.
 Proof.
-  intros.
 Admitted.
 
+Theorem inv_inv (G : group) : forall (g : X G), inv G (inv G g) = g.
+Proof.
+Admitted.
 
 Theorem inv_dist (G : group) : 
         forall (a b : X G), inv G (op G a b) = op G (inv G a) (inv G b).
@@ -38,4 +41,5 @@ Theorem left_cancel (G : group) :
         forall (a u v : X G), op G a u = op G a v -> u = v.
 Proof.
 Admitted.
+  
 
