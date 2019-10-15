@@ -44,7 +44,7 @@ Proof.
   rewrite (right_inverse G).
   reflexivity.
   Qed.
-(*
+
 Theorem inv_unique (G : group) :
   forall (a u v : X G), inv G a = u /\ inv G a = v -> u = v.
 Proof.
@@ -58,14 +58,24 @@ Proof.
       rewrite inv_commute in H1.
       rewrite H0 in H1.
       rewrite <- associativity in H1.
-      
-
-
-      
-      rewrite right_inverse in H1.
+      cut (op G u a = id G).
+      intros.
+      rewrite H3 in H1.
       rewrite <- left_identity in H1.
+      rewrite <- H1.
+      reflexivity.
+      rewrite <- H.
+      rewrite right_inverse.
+      reflexivity.
+    + simpl.
+      symmetry.
+      rewrite right_inverse.
+      reflexivity.
+  - simpl.
+    rewrite <- right_identity.
+    reflexivity.
 Qed.
-*)
+
 Theorem inv_dist (G : group) : 
         forall (a b : X G), inv G (op G a b) = op G (inv G b) (inv G a).
 Proof.
