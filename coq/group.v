@@ -24,11 +24,25 @@ Fixpoint applyN (G : group) (x : X G) (n : N) : X G :=
 
 Require Import Setoid.
 
+Lemma eq_trans : forall (T : Type) (a b c : T), a = b -> b = c -> a = c.
+Proof.
+  intros T a b c ab bc.
+  rewrite ab.
+  exact bc.
+Qed.
+
+Lemma eq_sym : forall (T : Type) (a b : T), a = b -> b = a.
+Proof.
+  intros.
+  symmetry.
+  trivial.
+Qed.
+  
 Theorem inv_inv (G : group) : forall (x : X G), inv G (inv G x) = x.
 Proof.
   intros.
   symmetry.
-  rewrite (right_identity G x) at 1.
+  apply (eq_trans (X G) x (op G x (id G)) (inv G (inv G x)) (right_identity G x)).
   rewrite <- (left_inverse G (inv G x)).
   rewrite <- (associativity G x (inv G x) (inv G (inv G x))).
   rewrite (left_inverse G x).
@@ -82,6 +96,7 @@ Proof.
   intros.
   rewrite (left_identity G (inv G (op G a b))).
   rewrite <- (right_inverse G b).
+  
   rewrite (left_identity G b) at 2.
   rewrite <- (right_inverse G a).
   rewrite (associativity G (inv G a) a b).
