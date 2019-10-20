@@ -13,14 +13,7 @@ zero + n = n
 (suc m) + n = suc (m + n)
 
 assoc : ∀ (a b c : ℕ) → (a + b) + c ≡ a + (b + c)
-assoc zero b c =
-  begin
-    (zero + b) + c
-  ≡⟨⟩
-    b + c
-  ≡⟨⟩
-    zero + (b + c)
-  ∎
+assoc zero b c = refl
 assoc (suc a) b c =
   begin
     (suc a + b) + c
@@ -32,4 +25,38 @@ assoc (suc a) b c =
     suc (a + (b + c))
   ≡⟨⟩
     suc a + (b + c)
+  ∎
+
+rident : ∀ (m : ℕ) → m + zero ≡ m
+rident zero = refl
+rident (suc m) =
+  begin
+    suc m + zero ≡⟨⟩ suc (m + zero)
+  ≡⟨ cong suc (rident m) ⟩
+    suc m
+  ∎
+
+rsuc : ∀ (m n : ℕ) → m + suc n ≡ suc (m + n)
+rsuc zero n = refl
+rsuc (suc m) n =
+  begin
+    suc m + suc n ≡⟨⟩ suc (m + suc n)
+  ≡⟨ cong suc (rsuc m n) ⟩
+    suc (suc m + n)
+  ∎
+
+comm : ∀ (m n : ℕ) → m + n ≡ n + m
+comm zero n =
+  begin
+    zero + n ≡⟨⟩ n
+  ≡⟨ sym (rident n) ⟩
+    n + zero
+  ∎
+comm (suc m) n =
+  begin
+    suc m + n ≡⟨⟩ suc (m + n)
+  ≡⟨ cong suc (comm m n) ⟩
+    suc (n + m)
+  ≡⟨ sym (rsuc n m) ⟩
+    n + suc m
   ∎
