@@ -2,13 +2,16 @@ Inductive Z2Z : Type :=
     | O : Z2Z
     | I : Z2Z.
 
+Definition succZ2Z (x : Z2Z) : Z2Z :=
+  match x with
+  | O => I
+  | I => O
+  end.
+
 Definition plusZ2Z (x : Z2Z) (y : Z2Z) : Z2Z :=
   match x with
   | O => y
-  | I => match y with
-         | O => I
-         | I => O
-         end
+  | I => succZ2Z y
   end.
 
 Lemma id_com : forall x : Z2Z, plusZ2Z O x = plusZ2Z x O.
