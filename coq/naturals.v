@@ -1,10 +1,10 @@
 Inductive N : Type :=
-    | O : N
+    | Z: N
     | S (n : N) : N.
 
 Fixpoint plusN (x : N) (y : N) : N :=
     match x with
-    | O => y
+    | Z => y
     | S x => S (plusN x y)
     end.
 

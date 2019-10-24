@@ -1,4 +1,5 @@
 Load naturals.
+Load zmod2z.
 
 (* 
  * D6 = {1, r, r^2, s, sr, sr^2}
@@ -18,4 +19,5 @@ Inductive Ref : Type :=
    | ref0 : Ref
    | ref1 : Ref.
 
-Definition D6 : Type := Ref * Rot3.
+(* Definition D6 : Type := Ref * Rot 3. *)
+Definition D6 : Type := Z2Z * Rot3.
