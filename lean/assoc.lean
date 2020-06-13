@@ -18,9 +18,6 @@ definition add : xnat → xnat → xnat
 
 notation a + b := add a b
 
-
-
-
 theorem one_add_one_equals_two : one + one = two :=
 begin  
 unfold two,
@@ -183,7 +180,7 @@ refl
 end
 
 theorem right_distrib' (a b c : xnat) : a * (b + c) = a* b + a * c := 
-begin 
+egin 
 induction c with c Hc,
   rw [mul_zero'], 
   rw [add_zero', add_zero'],
@@ -455,5 +452,4 @@ induction b with b Hb,
 intros, unfold mul
 end
 
-
-
+#check 
